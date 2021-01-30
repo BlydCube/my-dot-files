@@ -10,16 +10,16 @@ general {
         colors = true
         interval = 3
         #color_good = "#2AA198"
-	color_good = "#A3BE8C"
+	color_good = "#C4FEFF"
         #color_bad = "#586E75"
-	color_bad = "#BF616A"
+	color_bad = "#04ECF0"
         #color_degraded = "#DC322F"
-	color_degraded = "#B48EAD"
+	color_degraded = "#EE7095"
 }
 
-order += "cpu_usage"
+# order += "cpu_usage"
 # order += "cpu_temperature 0"
-order += "load"
+# order += "load"
 # order += "disk /"
 # order += "disk /data"
 # order += "disk /home"
