@@ -1,9 +1,38 @@
 let mapleader = ","
 syntax on
-
-set number
+set mouse=a
+set relativenumber
 
 call plug#begin('~/.vim/plugged')
+
+Plug 'vim-scripts/Align'
+
+Plug 'sainnhe/gruvbox-material'
+
+Plug 'hugolgst/vimsence'
+	let g:vimsence_client_id = '439476230543245312'
+	let g:vimsence_small_text = 'Vim'
+	let g:vimsence_small_image = 'vim'
+	let g:vimsence_editing_details = 'Editing: {}'
+	let g:vimsence_editing_state = 'Working on: {}'
+	let g:vimsence_file_explorer_text = 'In NERDTree'
+	let g:vimsence_file_explorer_details = 'Looking for files'
+	let g:vimsence_custom_icons = {'filetype': 'iconname'}
+
+function! BuildComposer(info)
+  if a:info.status != 'unchanged' || a:info.force
+    if has('nvim')
+      !cargo build --release --locked
+    else
+      !cargo build --release --locked --no-default-features --features json-rpc
+    endif
+  endif
+endfunction
+
+Plug 'LnL7/vim-nix'
+
+Plug 'euclio/vim-markdown-composer',{ 'do': function('BuildComposer') }
+	let g:markdown_composer_autostart = 1
 
 Plug 'vim-airline/vim-airline'
 	let g:airline#extensions#tabline#enabled = 1
@@ -38,12 +67,49 @@ Plug 'dracula/vim',{ 'as': 'dracula' }
 
 Plug 'LukeSmithxyz/vimling'
 
+Plug 'ycm-core/YouCompleteMe'
+
+Plug 'vim-scripts/vim-auto-save'
+	let g:auto_save_no_updatetime = 1  
+	let g:auto_save_in_insert_mode = 0 
+
+Plug 'flazz/vim-colorschemes'
+
+Plug 'vim-airline/vim-airline-themes'
+	:let g:airline_theme='alduin'
+
+" Plug 'eagletmt/neco-ghc'
+
+" Plug 'eagletmt/ghcmod-vim'
+
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+
+Plug 'mhinz/vim-startify'
+	let g:startify_custom_header = [
+			\ '           _____ ______                      ',
+			\ '           \    \\     \                     ',
+			\ '            \    \\     \                    ',
+			\ '             \    \\     \ _____________     ',
+			\ '              \    \\     \\            \    ',
+			\ '               \    \\     \\____________\   ',
+			\ '                \    \\     \ _____________  ',
+			\ '                /    //      \\            \ ',
+			\ '               /    //        \\____________\',
+			\ '              /    //    /\    \             ',
+			\ '             /    //    /  \    \            ',
+			\ '            /    //    /    \    \           ',
+			\ '           /____//____/      \____\          ',
+			\' ', 
+			\' ', 
+			\' ',
+			\]
 call plug#end()
 
+nmap ga <Plug>(EasyAlign)
 nm <leader><leader>d :call ToggleDeadKeys()<CR>
 nm <F9> :w<CR>:!python3 %<CR>
 set spell
 set spelllang=en
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 set background=dark
-colorscheme nord
+colorscheme 3dglasses
